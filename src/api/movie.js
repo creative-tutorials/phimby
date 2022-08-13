@@ -8,8 +8,6 @@ app.use(cors());
 // require jwt
 var jwt = require("jsonwebtoken");
 
-
-
 // whitelist
 var whitelist = ["http://localhost:3000"];
 var corsOptions = {
@@ -193,40 +191,26 @@ app.post("/api/users/singup", function (req, res) {
   // send the new user with status 201
   res.status(201).send(req.body);
 });
-// generate token for user
+// Login user if user exist & generate token for user
 app.post("/api/users/login", function (req, res) {
-    const { email, password } = req.body;
-    const user = users.find((user) => user.email === email && user.password === password);
-    if (!user) {
-        res.status(404).send("The user with given email and password was not found ❌");
-    } else {
-        const token = jwt.sign({ userId: user.id }, "secret", { expiresIn: "1h" });
-        res.status(200).send({ token });
-    }
+  const { id, email, password } = req.body;
+  const user = users.find(
+    (user) =>
+      user.email === email && user.password === password && user.id === id
+  );
+  if (!user) {
+    res
+      .status(404)
+      .send("Failed to login, please check your email and password ❌");
+  } else {
+    const token = jwt.sign({ userId: user.id }, "secret", { expiresIn: "1h" });
+    res.status(200).send({ token });
+  }
 });
 
 // get all users
 app.get("/api/users", function (req, res) {
   res.send(users);
-});
-
-// login user if user exists
-app.post("/api/users/login", function (req, res) {
-  const user = users.find(
-    (user) =>
-      user.email === req.body.email &&
-      user.password === req.body.password &&
-      user.id === req.body.id
-  );
-  if (!user) {
-    res
-      .status(401)
-      .send(
-        "Login failed, please check your email and password and try again ❌"
-      );
-  } else {
-    res.send(user);
-  }
 });
 
 // delete user account

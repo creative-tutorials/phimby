@@ -1,5 +1,9 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Proxima Nova', sans-serif;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
+}
+body {
+  background: #17161B;
 }
