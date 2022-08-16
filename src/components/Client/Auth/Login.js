@@ -25,8 +25,6 @@ const LoginPage = () => {
       myHeaders.append("Content-Type", "application/json");
 
       var raw = JSON.stringify({
-        id: parseInt(createUID),
-        name: undefined,
         email: emailValue,
         password: passwordValue,
       });
@@ -40,7 +38,19 @@ const LoginPage = () => {
 
       fetch("http://localhost:5000/api/users/login", requestOptions)
         .then((response) => response.json())
-        .then((result) => console.log(result))
+        .then((result) => {
+          console.log(result);
+          document.cookie = `token=${result.token}`;
+          const userobj = {
+            email: emailValue,
+            password: passwordValue,
+            token: result.token,
+          };
+          localStorage.setItem("user", JSON.stringify(userobj));
+          setTimeout(() => {
+            window.location.pathname = "/";
+          }, 5000);
+        })
         .catch((error) => console.log("error", error));
     }
   };
