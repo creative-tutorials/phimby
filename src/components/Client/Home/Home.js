@@ -11,9 +11,8 @@ const HomePage = () => {
 
   useEffect(() => {
     return () => {
-      const checkuserLocalStorage = JSON.parse(localStorage.getItem("user"));
-      const checkCookie = document.cookie;
-      if (checkuserLocalStorage === null && checkCookie === "") {
+      const checkLogin = JSON.parse(localStorage.getItem("user"));
+      if (checkLogin === null) {
         // react push to login page
         console.log("no user");
         window.location.href = "/login";
