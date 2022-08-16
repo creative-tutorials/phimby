@@ -1,4 +1,6 @@
 import { useRef } from "react";
+import { Link } from "react-router-dom";
+import "../../../styles/forms.css";
 const LoginPage = () => {
   const email = useRef();
   const password = useRef();
@@ -55,9 +57,18 @@ const LoginPage = () => {
     }
   };
   return (
-    <div className="form login">
+    <div className="forms login">
       <form className="form_box" onSubmit={SubmitForm}>
+        <p className="side_link">
+          Don't have an account?
+          <Link to="/signup">Signup</Link>
+        </p>
+        <h2>Enjoy high quality movies with Phimby</h2>
+        <p>Login to access your intresting movies</p>
         <div className="input-fields">
+          <label htmlFor="email" className="labels">
+            Email Here
+          </label>
           <input
             type="text"
             name=""
@@ -65,11 +76,11 @@ const LoginPage = () => {
             placeholder="Email"
             ref={email}
           />
-          <label htmlFor="email" className="labels">
-            Email Here
-          </label>
         </div>
         <div className="input-fields">
+          <label htmlFor="password" className="labels">
+            Password Here
+          </label>
           <input
             type="text"
             name=""
@@ -77,9 +88,12 @@ const LoginPage = () => {
             placeholder="Password"
             ref={password}
           />
-          <label htmlFor="password" className="labels">
-            Password Here
-          </label>
+        </div>
+        {/* forget password */}
+        <div className="btm">
+          <Link to="/login" className="fgt">
+            Forget Password
+          </Link>
         </div>
         <div className="submit_button">
           <button>Login</button>
