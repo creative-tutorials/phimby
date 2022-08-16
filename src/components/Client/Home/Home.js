@@ -10,18 +10,20 @@ const HomePage = () => {
   const movieItems = useRef();
 
   useEffect(() => {
-    return () => {
-      const checkLogin = JSON.parse(localStorage.getItem("user"));
-      if (checkLogin === null) {
-        // react push to login page
-        console.log("no user");
-        window.location.href = "/login";
-      } else {
-        console.log("user found");
-        fetchallMovies();
-      }
-    };
+    return () => {};
   }, []);
+
+  const loadPage = () => {
+    const checkLogin = JSON.parse(localStorage.getItem("user"));
+    if (checkLogin === null) {
+      // react push to login page
+      console.log("no user");
+      window.location.href = "/login";
+    } else {
+      console.log("user found");
+      fetchallMovies();
+    }
+  };
 
   const fetchAPIContent = async () => {
     const inputVal = searchInput.current.value;
@@ -31,7 +33,7 @@ const HomePage = () => {
     const data = await url.json();
     if (data.error) {
       setError(data.error);
-      console.error(data.error)
+      console.error(data.error);
     } else {
       setData(data);
       console.log(data);
@@ -46,7 +48,7 @@ const HomePage = () => {
     const data = await url.json();
     if (data.error) {
       setError(data.error);
-      console.error(data.error)
+      console.error(data.error);
     } else {
       setData(data);
       console.log(data);
@@ -71,7 +73,7 @@ const HomePage = () => {
     }
   };
   return (
-    <div className="home-page">
+    <div className="home-page" onLoad={loadPage}>
       <Sidebar />
       <div className="main-body-01">
         <Header searchInput={searchInput} fetchAPIContent={fetchAPIContent} />
