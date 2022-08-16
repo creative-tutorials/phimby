@@ -1,0 +1,45 @@
+.movie {
+  width: 100%;
+  margin-top: 0.9em;
+  padding: 20px 30px;
+}
+.movie__info {
+  margin-top: 1em;
+}
+.movie__info h2 {
+  font-size: 2em;
+  margin-bottom: 0.5em;
+  font-weight: 500;
+  color: #fff;
+}
+.items_list {
+  display: flex;
+  margin-top: -0.5em;
+}
+.items_list p {
+  margin-right: 1em;
+  color: rgb(224, 224, 224);
+}
+.dot {
+  position: relative;
+}
+.dot::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 10px;
+  width: 5px;
+  height: 5px;
+  background: rgb(224, 224, 224);
+  border-radius: 50%;
+}
+.movie__poster {
+  margin-top: 1em;
+}
+.movie__poster img {
+  width: 100%;
+  /* calculate height if img height is to long */
+  height: 500px;
+  object-fit: contain;
+  border-radius: 5px;
+}

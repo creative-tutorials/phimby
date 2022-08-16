@@ -45,21 +45,24 @@
   top: 0;
   padding: 20px;
 }
-.main-body-01 .header-col-1 .col-req {
+.header-col-1 .col-req {
   position: relative;
 }
-.main-body-01 .header-col-1 .col-req input {
+.header-col-1 .col-req input {
   width: 100%;
   height: 40px;
-  border: 1px solid #ccc;
+  border: 1px solid transparent;
+  outline: none;
+  background: rgb(42, 40, 50);
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
   border-radius: 5px;
   padding: 0 40px;
   font-size: 1rem;
-  color: #000;
+  color: #eee;
   font-weight: 500;
   user-select: none;
 }
-.main-body-01 .header-col-1 .col-req button {
+.header-col-1 .col-req button {
   position: absolute;
   left: 10px;
   top: 3px;
@@ -128,4 +131,77 @@
 .watch-slide-body .watch-slide-body-btn button:hover {
   background: rgb(65, 63, 71);
   color: #fff;
+}
+.movie-list .movie-list-header h2 {
+  margin-left: 10px;
+  color: #fff;
+  margin-top: 10px;
+  font-family: "Montserrat", sans-serif;
+}
+.list-of-movies .movie-item {
+  margin-top: 30px;
+}
+.show {
+  width: 500px;
+  height: 400px;
+  background: rgb(42, 40, 50);
+  padding: 20px;
+  border-radius: 20px;
+  position: absolute;
+  top: 100px;
+  left: 0;
+}
+.movie-item-thumbnail img {
+  width: 100%;
+  height: auto;
+  border-radius: 20px;
+  /* disallow user select */
+  user-select: none;
+  /* disable pointer events */
+  pointer-events: none;
+}
+.all_list {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.list_poster {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+.list_poster img {
+  width: 100%;
+  height: 100%;
+  transition: all 0.3s;
+}
+.list_poster img:hover {
+  transform: scale(1.1);
+}
+.information h2 {
+  color: #fff;
+  font-size: larger;
+  margin-top: 10px;
+}
+.lists_menu {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+.lists_menu p {
+  margin-left: 20px;
+  color: #eee;
+}
+.movie__lists {
+  width: 400px;
+  padding: 10px 20px;
+  background: transparent;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
 }
