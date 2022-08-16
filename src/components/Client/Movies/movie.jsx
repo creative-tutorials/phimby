@@ -25,6 +25,8 @@ const Movie = (props) => {
     const movie = JSON.parse(localStorage.getItem("movie"));
     if (movie) {
       document.title = `${movie.name}`;
+    } else {
+      document.title = "Error loading movie";
     }
   };
   return (

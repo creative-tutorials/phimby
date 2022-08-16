@@ -32,6 +32,7 @@ const HomePage = () => {
     const data = await url.json();
     if (data.error) {
       setError(data.error);
+      console.error(data.error)
     } else {
       setData(data);
       console.log(data);
@@ -46,6 +47,7 @@ const HomePage = () => {
     const data = await url.json();
     if (data.error) {
       setError(data.error);
+      console.error(data.error)
     } else {
       setData(data);
       console.log(data);
