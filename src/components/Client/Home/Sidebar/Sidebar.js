@@ -1,4 +1,4 @@
-import "../../../../styles/Home.css"
+import "../../../../styles/Home.css";
 import React from "react";
 import { Link } from "react-router-dom";
 export function Sidebar({}) {
@@ -23,7 +23,7 @@ export function Sidebar({}) {
             </li>
             <li className="sidebar-list-item">
               <Link to="/soon">
-                <i className="fa-light fa-egg"></i> Coming soon
+                <i className="fa-solid fa-fire-flame-curved"></i> Coming soon
               </Link>
             </li>
           </ul>
