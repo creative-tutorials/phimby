@@ -200,8 +200,8 @@ app.post("/api/users/login", function (req, res) {
   );
   if (!user) {
     res
-      .status(404)
-      .send("Failed to login, please check your email and password ❌");
+      .status(401)
+      .send("Failed to login, please check your email and password and Try Again!");
   } else {
     const token = jwt.sign({ userId: user.id }, "secret", { expiresIn: "1h" });
     res.status(200).send({ token });
@@ -217,7 +217,7 @@ app.get("/api/users", function (req, res) {
 app.delete("/api/users/:id", function (req, res) {
   const user = users.find((user) => user.id === parseInt(req.params.id));
   if (!user) {
-    res.status(404).send("The user with given id was not found ❌");
+    res.status(401).send("The user with given id was not found ❌");
   } else {
     const index = users.indexOf(user);
     users.splice(index, 1);
@@ -229,7 +229,7 @@ app.delete("/api/users/:id", function (req, res) {
 app.put("/api/users/:id", function (req, res) {
   const user = users.find((user) => user.id === parseInt(req.params.id));
   if (!user) {
-    res.status(404).send("The user with given id was not found ❌");
+    res.status(401).send("The user with given id was not found ❌");
   } else {
     user.password = req.body.password;
     res.send(user);
@@ -240,7 +240,7 @@ app.put("/api/users/:id", function (req, res) {
 app.post("/api/users/reset", function (req, res) {
   const user = users.find((user) => user.email === req.body.email);
   if (!user) {
-    res.status(404).send("The user with given email was not found ❌");
+    res.status(401).send("The user with given email was not found ❌");
   } else {
     res.send("Password reset link sent to your email");
   }
