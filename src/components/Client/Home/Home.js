@@ -1,4 +1,4 @@
-import { responseData } from '../Response/resObject';
+import { responseData } from "../Response/resObject";
 import { Header } from "./Header/Header";
 import "../../../styles/Home.css";
 import { Sidebar } from "./Sidebar/Sidebar";
@@ -11,7 +11,16 @@ const HomePage = () => {
 
   useEffect(() => {
     return () => {
-      fetchallMovies();
+      const checkuserLocalStorage = JSON.parse(localStorage.getItem("user"));
+      const checkCookie = document.cookie;
+      if (checkuserLocalStorage === null && checkCookie === "") {
+        // react push to login page
+        console.log("no user");
+        window.location.href = "/login";
+      } else {
+        console.log("user found");
+        fetchallMovies();
+      }
     };
   }, []);
 
@@ -105,5 +114,3 @@ const HomePage = () => {
   );
 };
 export default HomePage;
-
-
