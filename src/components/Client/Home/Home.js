@@ -1,16 +1,22 @@
-import { ResponseData } from "../Response/resObject";
+import { responseData } from '../Response/resObject';
+import { Header } from "./Header/Header";
 import "../../../styles/Home.css";
 import { Sidebar } from "./Sidebar/Sidebar";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 const HomePage = () => {
   const [stateData, setData] = useState([]);
   const [error, setError] = useState(null);
   const searchInput = useRef();
-  const movieItem = useRef();
+  const movieItems = useRef();
+
+  useEffect(() => {
+    return () => {
+      fetchallMovies();
+    };
+  }, []);
 
   const fetchAPIContent = async () => {
     const inputVal = searchInput.current.value;
-    const movieHTML = movieItem.current;
     const url = await fetch(
       `http://localhost:5000/api/movies/name/${inputVal}`
     );
@@ -20,43 +26,45 @@ const HomePage = () => {
     } else {
       setData(data);
       console.log(data);
-      const resObjData = ResponseData(data);
-
-      resObjData.map((movie) => {
-        return (movieHTML.innerHTML = `
-        <div className="movie-item">
-          <div className="movie-item-thumbnail">
-            <img src="${movie.thumbnail}" alt="${movie.name}" />
-          </div>
-          <div className="movie-item-info">
-            <h3>${movie.name}</h3>
-            <p>${movie.length}</p>
-            <p>${movie.year}</p>
-            <p>${movie.Rating}</p>
-          </div>
-        </div>`);
-      });
+      localStorage.setItem("movie", JSON.stringify(data));
       setError(null);
+      window.location.href = "/movies";
+    }
+  };
+  const fetchallMovies = async () => {
+    const url = await fetch(`http://localhost:5000/api/movies/`);
+    const items = movieItems.current;
+    const data = await url.json();
+    if (data.error) {
+      setError(data.error);
+    } else {
+      setData(data);
+      console.log(data);
+      setError(null);
+      const newData = responseData(data);
+      console.log("newData", newData);
+      const mappedItems = newData.map((item) => {
+        return (items.innerHTML += `<div class="movie__lists">
+        <div class="list_poster">
+          <img src="${item.thumbnail}" alt="${item.name}" />
+        </div>
+        <div class="information">
+          <h2>${item.name}</h2>
+          <div class="lists_menu">
+            <p>${item.year}</p>
+            <p class="dot">${item.length}</p>
+            <p class="dot">${item.Rating}</p>
+          </div>
+        </div>
+      </div>`);
+      });
     }
   };
   return (
     <div className="home-page">
       <Sidebar />
       <div className="main-body-01">
-        <div className="header-col-1">
-          <div className="col-req">
-            <input
-              type="text"
-              name="name"
-              placeholder="Search"
-              ref={searchInput}
-              autoComplete="off"
-            />
-            <button onClick={fetchAPIContent}>
-              <i className="fa-regular fa-search"></i>
-            </button>
-          </div>
-        </div>
+        <Header searchInput={searchInput} fetchAPIContent={fetchAPIContent} />
         <div className="movie-content">
           <h2>Premiering Movies</h2>
           <div className="watch-slide">
@@ -84,10 +92,10 @@ const HomePage = () => {
         </div>
         <div className="movie-list">
           <div className="movie-list-header">
-            <h2>Movies</h2>
+            <h2>Popular Movies</h2>
           </div>
           <ul className="list-of-movies">
-            <li className="movies-item" ref={movieItem}>
+            <li className="all_list" ref={movieItems}>
               {/* <div className=""></div> */}
             </li>
           </ul>
@@ -97,3 +105,5 @@ const HomePage = () => {
   );
 };
 export default HomePage;
+
+
