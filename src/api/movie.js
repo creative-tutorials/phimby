@@ -185,23 +185,30 @@ app.get("/api/users/:id", function (req, res) {
   }
 });
 
-// create a new user in signup route
+// if signup route already has a user with same email then send error
 app.post("/api/users/singup", function (req, res) {
-  users.push(req.body);
-  // send the new user with status 201
-  res.status(201).send(req.body);
+  const user = users.find((user) => user.email === req.body.email); // find user with same email as the one in the request body
+  if (user) {
+    res.status(400).send("User already registered ❌");
+  } else {
+    users.push(req.body);
+    // send the new user with status 201
+    res.status(201).send(req.body);
+  }
 });
 // Login user if user exist & generate token for user
 app.post("/api/users/login", function (req, res) {
-  const { id, email, password } = req.body;
+  const { email, password } = req.body;
   const user = users.find(
     (user) =>
-      user.email === email && user.password === password && user.id === id
+      user.email === email && user.password === password
   );
   if (!user) {
     res
       .status(401)
-      .send("Failed to login, please check your email and password and Try Again!");
+      .send(
+        "Failed to login, please check your email and password and Try Again!"
+      );
   } else {
     const token = jwt.sign({ userId: user.id }, "secret", { expiresIn: "1h" });
     res.status(200).send({ token });
@@ -226,10 +233,10 @@ app.delete("/api/users/:id", function (req, res) {
 });
 
 // allow user to reset password
-app.put("/api/users/:id", function (req, res) {
-  const user = users.find((user) => user.id === parseInt(req.params.id));
+app.put("/api/users/rst", function (req, res) {
+  const user = users.find((user) => user.email === req.body.email);
   if (!user) {
-    res.status(401).send("The user with given id was not found ❌");
+    res.status(401).send("Email address you entered is not recognised on our database ❌");
   } else {
     user.password = req.body.password;
     res.send(user);
