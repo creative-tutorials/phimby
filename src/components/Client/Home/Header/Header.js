@@ -15,6 +15,9 @@ export function Header({ searchInput, fetchAPIContent }) {
           <i className="fa-regular fa-search"></i>
         </button>
       </div>
+      <div className="account_header">
+        
+      </div>
     </div>
   );
 }
