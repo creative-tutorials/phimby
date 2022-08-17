@@ -23,6 +23,7 @@ app.use(express.json());
 // use url-encoded
 app.use(express.urlencoded({ extended: true }));
 
+require("dotenv").config({ path: __dirname + "/./../../.env" });
 const PORT = process.env.PORT || 5000;
 
 const users = [
@@ -43,6 +44,22 @@ const movies = [
     year: 2021,
     Rating: "PG-13",
     thumbnail: "https://bit.ly/3JOIkTw",
+    casts: {
+      csj: {
+        cstName: "Tom Holland",
+        actingName: "Peter Parker",
+        DOB: "June 1, 1996",
+        Town: "Kingston upon Thames, England, UK",
+        ProfilePic: "",
+      },
+      sjs: {
+        cstName: "Zendaya",
+        actingName: "MJ",
+        DOB: "September 1, 1996 ",
+        Town: "Oakland, California, USA",
+        ProfilePic: "",
+      }
+    }
   },
   {
     id: mvid + 1, // add 1 to mvid to avoid duplicate id
@@ -200,8 +217,7 @@ app.post("/api/users/singup", function (req, res) {
 app.post("/api/users/login", function (req, res) {
   const { email, password } = req.body;
   const user = users.find(
-    (user) =>
-      user.email === email && user.password === password
+    (user) => user.email === email && user.password === password
   );
   if (!user) {
     res
@@ -236,7 +252,9 @@ app.delete("/api/users/:id", function (req, res) {
 app.put("/api/users/rst", function (req, res) {
   const user = users.find((user) => user.email === req.body.email);
   if (!user) {
-    res.status(401).send("Email address you entered is not recognised on our database ❌");
+    res
+      .status(401)
+      .send("Email address you entered is not recognised on our database ❌");
   } else {
     user.password = req.body.password;
     res.send(user);
