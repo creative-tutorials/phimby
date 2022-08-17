@@ -16,7 +16,7 @@ const LoginPage = () => {
       console.log("input are not valid");
     }
 
-    function createCredentials(emailValue, passwordValue) {
+    async function createCredentials(emailValue, passwordValue) {
       const createUID = Math.floor(
         Math.random() * (passwordValue.length + 5000 || 8000)
       );
@@ -38,8 +38,16 @@ const LoginPage = () => {
         redirect: "follow",
       };
 
-      fetch("http://localhost:5000/api/users/login", requestOptions)
-        .then((response) => response.json())
+      await fetch("http://localhost:4000/api/users/login", requestOptions)
+        .then((response) => {
+          response.json();
+          // if status code is 401 then redirect to home page
+          if (response.status === 401) {
+            alert("email or password is incorrect");
+          } else {
+            return response;
+          }
+        })
         .then((result) => {
           console.log(result);
           document.cookie = `token=${result.token}`;
@@ -58,7 +66,7 @@ const LoginPage = () => {
   };
   return (
     <div className="forms login">
-      <form className="form_box" onSubmit={SubmitForm}>
+      <form className="form_box" autoComplete="off" onSubmit={SubmitForm}>
         <p className="side_link">
           Don't have an account?
           <Link to="/signup">Signup</Link>
@@ -97,6 +105,14 @@ const LoginPage = () => {
         </div>
         <div className="submit_button">
           <button>Login</button>
+        </div>
+        <div className="lineBreak">
+          <p>or</p>
+        </div>
+        <div className="googleOAuth">
+          <button>
+            <img src="/google.svg" alt="" /> Sign in with Google
+          </button>
         </div>
       </form>
     </div>
