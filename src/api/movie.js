@@ -24,7 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 require("dotenv").config({ path: __dirname + "/./../../.env" });
-const PORT = process.env.PORT || 5040;
+const PORT = process.env.PORT || 5000;
 
 const users = [
   {

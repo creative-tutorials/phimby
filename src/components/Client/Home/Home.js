@@ -49,7 +49,14 @@ const HomePage = () => {
     }
   };
   const fetchallMovies = async () => {
-    const url = await fetch(`https://c9a3-102-89-41-194.eu.ngrok.io/api/movies/`);
+    const options = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      }
+    }
+    const url = await fetch(`http://localhost:4000/api/movies/`, options);
     const items = movieItems.current;
     const data = await url.json();
     console.log(data);
