@@ -4,10 +4,11 @@
 .col-sidebar {
   width: 200px;
   height: 100%;
-  background: rgb(42, 40, 50);
+  background: rgb(28, 27, 34);
   position: fixed;
   left: 0;
   top: 0;
+  border-radius: 5px;
   padding: 20px;
 }
 .sidebar-header h3 {
@@ -22,17 +23,35 @@
   color: rgb(199, 199, 199);
   margin-bottom: 10px;
   margin-top: 20px;
+  font-size: 1.4rem;
+  border-bottom: 1px solid rgb(199, 199, 199);
 }
 .sidebar-body .sidebar-list-items li {
   list-style: none;
   margin-bottom: 10px;
+  background-color: transparent;
+  padding: 15px;
+  border-radius: 5px;
+}
+.sidebar-body .sidebar-list-items li:hover {
+  background-color: #acacac;
+}
+.sidebar-body .sidebar-list-items li:hover a {
+  color: #212121;
 }
 .sidebar-body .sidebar-list-items li a {
-  color: rgb(199, 199, 199);
+  color: #afafaf;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
   user-select: none;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.sidebar-body .sidebar-list-items li a i {
+  font-size: 1.4rem;
+  margin-right: 5px;
 }
 .main-body-01 {
   width: calc(100% - 200px);
@@ -75,7 +94,14 @@
 .movie-content {
   margin-top: 28px;
 }
-.movie-content .watch-slide-thumb img {
+.watch-slide {
+  width: 100%;
+  background: transparent;
+}
+.watch-slide .corousel_sliderBx {
+  width: 100%;
+}
+.watch-slide-thumb img {
   width: 100%;
   height: auto;
   border-radius: 20px;
@@ -95,42 +121,6 @@
 }
 .movie-content .watch-slide-thumb {
   position: relative;
-}
-.watch-slide-body {
-  width: 300px;
-  position: absolute;
-  background: rgba(0, 0, 0, 0.375);
-  bottom: 7px;
-  left: 0;
-  padding: 20px;
-  border-radius: 20px;
-}
-.watch-slide-body .watch-slide-info {
-  display: flex;
-  align-items: center;
-  margin-top: 5px;
-}
-.watch-slide-body .watch-slide-info p:last-child {
-  margin-left: 10px;
-}
-.watch-slide-body .watch-slide-body-btn {
-  display: flex;
-  margin-top: 5px;
-}
-.watch-slide-body .watch-slide-body-btn button {
-  margin-right: 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  border: none;
-  background: rgb(56, 53, 64);
-  font-weight: 500;
-  color: #fff;
-  cursor: pointer;
-  /* reflection button */
-}
-.watch-slide-body .watch-slide-body-btn button:hover {
-  background: rgb(65, 63, 71);
-  color: #fff;
 }
 .movie-list .movie-list-header h2 {
   margin-left: 10px;
@@ -203,5 +193,15 @@
   margin-bottom: 20px;
   margin-right: 20px;
   border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1)
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+@media screen and (max-width: 768px) {
+  .movie-content h2 {
+    color: #fff;
+    font-size: 1.2rem;
+  }
+  .movie-list .movie-list-header h2 {
+    color: #fff;
+    font-size: 1.2rem;
+  }
 }
