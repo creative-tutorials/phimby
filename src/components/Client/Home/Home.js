@@ -3,28 +3,34 @@ import { Header } from "./Header/Header";
 import "../../../styles/Home.css";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { useState, useRef, useEffect } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 const HomePage = () => {
   const [stateData, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [counter, setCount] = useState(0);
   const searchInput = useRef();
   const movieItems = useRef();
 
   useEffect(() => {
-    return () => {};
-  }, []);
+    loadPage();
+    setCount(1);
+    if(counter === 1) {
+      fetchallMovies();
+    } else {
+      console.error("exceeded counter limit");
+    }
+    return () => {
+      // cleanup
+    };
+  });
 
   const loadPage = () => {
     const checkLogin = JSON.parse(localStorage.getItem("user"));
     if (checkLogin === null) {
-      // react push to login page
-      console.log("no user");
-      window.location.href = "/login";
-    } else {
-      console.log("user found");
-      fetchallMovies();
+      window.location.pathname = "/login";
     }
   };
-
   const fetchAPIContent = async () => {
     const inputVal = searchInput.current.value;
     const url = await fetch(
@@ -46,12 +52,7 @@ const HomePage = () => {
     const url = await fetch(`http://localhost:4000/api/movies/`);
     const items = movieItems.current;
     const data = await url.json();
-    if (data.error) {
-      setError(data.error);
-      console.error(data.error);
-    } else {
-      setData(data);
-      console.log(data);
+    console.log(data);
       setError(null);
       const newData = responseData(data);
       console.log("newData", newData);
@@ -70,10 +71,9 @@ const HomePage = () => {
         </div>
       </div>`);
       });
-    }
   };
   return (
-    <div className="home-page" onLoad={loadPage}>
+    <div className="home-page">
       <Sidebar />
       <div className="main-body-01">
         <Header searchInput={searchInput} fetchAPIContent={fetchAPIContent} />
@@ -81,24 +81,21 @@ const HomePage = () => {
           <h2>Premiering Movies</h2>
           <div className="watch-slide">
             <div className="watch-slide-thumb">
-              <img src="https://bit.ly/3zQVPNW" alt="" />
+              <Carousel autoPlay={true}>
+                <div className="corousel_sliderBx">
+                  <img src="https://bit.ly/3JOIkTw" alt="" />
+                  <p className="legend">SpiderMan No Way Home</p>
+                </div>
+                <div className="corous_sliderBx">
+                  <img src="https://bit.ly/3PoAQHY" alt="" />
+                  <p className="legend">Thor Love and Thunder</p>
+                </div>
+                <div className="corous_sliderBx">
+                  <img src="https://bit.ly/3zUyKtS" alt="" />
+                  <p className="legend">The Dark Knight</p>
+                </div>
+              </Carousel>
               {/*  */}
-              <div className="watch-slide-body">
-                <div className="watch-slide-body-header">
-                  <h3>DC SupertPets</h3>
-                </div>
-                <div className="watch-slide-info">
-                  <p>1h 44m</p>
-                  <p>2022</p>
-                </div>
-                <div className="watch-slide-body-btn">
-                  <button>Watch</button>
-                  {/* add btn */}
-                  <button>
-                    <i className="fa-regular fa-plus"></i>
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         </div>
