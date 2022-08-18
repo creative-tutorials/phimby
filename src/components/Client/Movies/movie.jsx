@@ -8,7 +8,7 @@ const Movie = (props) => {
   const fetchAPIContent = async () => {
     const inputVal = searchInput.current.value;
     const url = await fetch(
-      `http://localhost:4000/api/movies/name/${inputVal}`
+      `https://c9a3-102-89-41-194.eu.ngrok.io/api/movies/name/${inputVal}`
     );
     const data = await url.json();
     if (data.error) {
