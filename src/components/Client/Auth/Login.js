@@ -14,6 +14,7 @@ const LoginPage = () => {
       createCredentials(emailValue, passwordValue);
     } else {
       console.log("input are not valid");
+      alert("Please enter email address and password")
     }
 
     async function createCredentials(emailValue, passwordValue) {
