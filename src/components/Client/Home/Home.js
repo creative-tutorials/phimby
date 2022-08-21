@@ -34,7 +34,7 @@ const HomePage = () => {
   const fetchAPIContent = async () => {
     const inputVal = searchInput.current.value;
     const url = await fetch(
-      `https://c9a3-102-89-41-194.eu.ngrok.io/api/movies/name/${inputVal}`
+      `https://phimby-api.vercel.app/api/movies/name/${inputVal}`
     );
     const data = await url.json();
     if (data.error) {
@@ -56,7 +56,7 @@ const HomePage = () => {
         "Access-Control-Allow-Origin": "*",
       }
     }
-    const url = await fetch(`http://localhost:4000/api/movies/`, options);
+    const url = await fetch(`https://phimby-api.vercel.app/api/movies/`, options);
     const items = movieItems.current;
     const data = await url.json();
     console.log(data);

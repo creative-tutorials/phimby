@@ -39,7 +39,7 @@ const LoginPage = () => {
         redirect: "follow",
       };
 
-      await fetch("http://localhost:4000/api/users/login", requestOptions)
+      await fetch("https://phimby-api.vercel.app/api/users/login", requestOptions)
         .then((response) => {
           response.json();
           // if status code is 401 then redirect to home page

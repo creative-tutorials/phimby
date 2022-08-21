@@ -44,22 +44,6 @@ const movies = [
     year: 2021,
     Rating: "PG-13",
     thumbnail: "https://bit.ly/3JOIkTw",
-    casts: {
-      csj: {
-        cstName: "Tom Holland",
-        actingName: "Peter Parker",
-        DOB: "June 1, 1996",
-        Town: "Kingston upon Thames, England, UK",
-        ProfilePic: "",
-      },
-      sjs: {
-        cstName: "Zendaya",
-        actingName: "MJ",
-        DOB: "September 1, 1996 ",
-        Town: "Oakland, California, USA",
-        ProfilePic: "",
-      }
-    }
   },
   {
     id: mvid + 1, // add 1 to mvid to avoid duplicate id
