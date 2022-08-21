@@ -124,3 +124,12 @@
   height: 30px;
   width: 30px;
 }
+.directLink {
+  text-align: center;
+  margin-top: 10px;
+}
+.directLink a {
+  color: #364766;
+  text-decoration: none;
+  margin-left: 3px;
+}
