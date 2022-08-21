@@ -115,6 +115,11 @@ const LoginPage = () => {
             <img src="/google.svg" alt="" /> Sign in with Google
           </button>
         </div>
+        <div className="directLink">
+          <p>Don't have an account?
+            <Link to="/signup" className="signup">Singup</Link>
+          </p>
+        </div>
       </form>
     </div>
   );
