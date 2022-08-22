@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
+import { GoogleAuthSign } from '../GoogleAuth/AuthGoogle';
 import "../../../styles/forms.css";
 const LoginPage = () => {
   const email = useRef();
@@ -14,12 +15,12 @@ const LoginPage = () => {
       createCredentials(emailValue, passwordValue);
     } else {
       console.log("input are not valid");
-      alert("Please enter email address and password")
+      alert("Please enter email address and password");
     }
 
     async function createCredentials(emailValue, passwordValue) {
       const createUID = Math.floor(
-        Math.random() * (passwordValue.length + 5000 || 8000)
+        Math.random() * (passwordValue.length + 5000 || 8000) // create a unique id for each credential in the database
       );
       console.log("createCredentials: " + emailValue + " " + passwordValue);
       console.log(createUID);
@@ -39,23 +40,24 @@ const LoginPage = () => {
         redirect: "follow",
       };
 
-      await fetch("https://phimby-api.vercel.app/api/users/login", requestOptions)
+      await fetch(
+        "https://phimby-api.vercel.app/api/users/login",
+        requestOptions
+      )
         .then((response) => {
           response.json();
-          // if status code is 401 then redirect to home page
+          // if status code is 401 alert error
           if (response.status === 401) {
-            alert("email or password is incorrect");
+            alert("Invalid Credentials!");
           } else {
             return response;
           }
         })
         .then((result) => {
           console.log(result);
-          document.cookie = `token=${result.token}`;
           const userobj = {
             email: emailValue,
             password: passwordValue,
-            token: result.token,
           };
           localStorage.setItem("user", JSON.stringify(userobj));
           setTimeout(() => {
@@ -65,6 +67,7 @@ const LoginPage = () => {
         .catch((error) => console.log("error", error));
     }
   };
+  const GoogleAuthHandler = GoogleAuthSign
   return (
     <div className="forms login">
       <form className="form_box" autoComplete="off" onSubmit={SubmitForm}>
@@ -110,15 +113,10 @@ const LoginPage = () => {
         <div className="lineBreak">
           <p>or</p>
         </div>
-        <div className="googleOAuth">
+        <div className="googleOAuth" onClick={GoogleAuthHandler}>
           <button>
-            <img src="/google.svg" alt="" /> Sign in with Google
+            <img src="/google.png" alt="" /> Sign in with Google
           </button>
-        </div>
-        <div className="directLink">
-          <p>Don't have an account?
-            <Link to="/signup" className="signup">Singup</Link>
-          </p>
         </div>
       </form>
     </div>
