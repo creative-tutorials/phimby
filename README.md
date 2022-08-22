@@ -1,1 +1,1 @@
-# Simple Movie App using NodeJS and React
+# Simple Movie App using Express and React
