@@ -1,7 +1,7 @@
 import "../../../../styles/Home.css";
 import React from "react";
 import { Link } from "react-router-dom";
-export function Sidebar({}) {
+export function Sidebar() {
   return (
     <div className="col-sidebar">
       <div className="sidebar">
