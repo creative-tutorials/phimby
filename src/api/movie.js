@@ -32,6 +32,7 @@ const users = [
     name: "John",
     email: "john@mail.com",
     password: "123456",
+    age: 18,
   },
 ];
 
@@ -186,15 +187,54 @@ app.get("/api/users/:id", function (req, res) {
   }
 });
 
-// if signup route already has a user with same email then send error
-app.post("/api/users/singup", function (req, res) {
-  const user = users.find((user) => user.email === req.body.email); // find user with same email as the one in the request body
-  if (user) {
-    res.status(400).send("User already registered ❌");
+// get user by name
+app.get("/api/users/name/:name", function (req, res) {
+  const user = users.find((user) => user.name === req.params.name);
+  if (!user) {
+    res.status(404).send("The user with given name was not found ❌");
   } else {
-    users.push(req.body);
-    // send the new user with status 201
-    res.status(201).send(req.body);
+    res.send(user);
+  }
+});
+
+// if age is less than 18yrs old return an error
+app.get("/api/users/age/:age", function (req, res) {
+  const user = users.find((user) => user.age === parseInt(req.params.age));
+  const age = req.params.age;
+
+  if (age < 18) {
+    console.log("less than 18");
+    res.status(401).send({
+      message: "User you try to find is less than 18, can't retrieve data",
+    });
+  } else {
+    console.log("good to go");
+    res.send(user);
+  }
+});
+
+// if signup route already has a user with same email then send error
+app.post("/api/users/signup", function (req, res) {
+  const user = users.find((user) => user.email === req.body.email); // find user with susame email as the one in the request body
+  const userId = req.body.id;
+  const ageValue = parseInt(req.body.age);
+  if (user) {
+    res.status(401).send({
+      message: "User already exists",
+    });
+  } else {
+    validateAge();
+  }
+  function validateAge() {
+    if (ageValue < 18) {
+      res.status(401).send({
+        message: "Unauthorized: You are younger than the age of 18"
+      });
+    } else {
+      const token = jwt.sign({ userId: userId }, "secret", { expiresIn: "1h" });
+      users.push(req.body);
+      res.status(200).send({ token }); // jwt token
+    }
   }
 });
 // Login user if user exist & generate token for user
@@ -210,8 +250,7 @@ app.post("/api/users/login", function (req, res) {
         "Failed to login, please check your email and password and Try Again!"
       );
   } else {
-    const token = jwt.sign({ userId: user.id }, "secret", { expiresIn: "1h" });
-    res.status(200).send({ token });
+    res.send(user);
   }
 });
 
