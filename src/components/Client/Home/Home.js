@@ -28,7 +28,7 @@ const HomePage = () => {
   const loadPage = () => {
     const checkLogin = JSON.parse(localStorage.getItem("user"));
     if (checkLogin === null) {
-      window.location.pathname = "/login";
+      window.location.pathname = "/signup";
     }
   };
   const fetchAPIContent = async () => {
