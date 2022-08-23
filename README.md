@@ -1,7 +1,6 @@
 ![Phimby logo](https://33333.cdn.cke-cs.com/kSW7V9NHUXugvhoQeFaf/images/04155f57c3e3478f53c75a440cc2ab089488a396fd5f901e.png)
 
-##   
-Phimby MovieBase
+## Phimby MovieBase
 
 ### About App
 
