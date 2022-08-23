@@ -28,4 +28,7 @@ If you're interested in knowing about this product kindly [visit our blog](https
 4.  You cannot use this software for commercials or adverts, excepts granted by the owner.
 5.  No selling of user's email address, or username.
 
-##### [Phimby](https://phimby.vercel.app/) Made with 💖
+<h2 align="center">
+
+[Phimby](https://github.com/creative-tutorials/phimby) Made with 💖
+</h4>
