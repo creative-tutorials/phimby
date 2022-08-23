@@ -18,7 +18,7 @@ Phimby is a simple movie app, with phimby you can stream favourite movies, downl
 
 ### Blog
 
-If you're interested in knowing about this product kindly [visit our blog](https://phimby.vercel.app/)
+If you're interested in knowing more about this product kindly [visit our blog](https://phimby.vercel.app/)
 
 ### Copyright
 
