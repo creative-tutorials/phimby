@@ -131,3 +131,27 @@
   width: 30px;
   margin-right: 5px;
 }
+/*  */
+.alertBx {
+  position: fixed;
+  right: -100%;
+  bottom: 0;
+  padding: 15px;
+  background: #2a1e1e;
+  border-radius: 5px;
+  border-left: 3px solid rgb(229, 103, 103);
+  color: #ff8c8c;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.alertBx.reveal {
+  right: 20px;
+}
+.alert-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.alert-message i {
+  margin-right: 5px;
+}
