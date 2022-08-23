@@ -1,0 +1,40 @@
+This program and all documentation as well as source files not including
+this license, are copyright (C) 2020-2022 Oglance. All rights reserved.
+
+This license is applies to all source files within the this repository,
+and it is an edited version of an license originally made by the github
+user @lutet88.
+
+Redistribution, and the use of this software in source regardless of 
+modification are permitted provided that all the rules and conditions
+below are followed.
+
+1. Redistributions of this source must state the changes done to the
+software and also must retain the above copyright above as well as the 
+following disclaimer.
+
+2. The origin and source of the tool must not be misrepresented. The 
+origin of the source must be disclosed in any redistribution of this 
+software. While it would be appreciated if you could dislose the source
+of this software in any product, it is neither mandatory or neccesary.
+
+3. Altered versions of this source that are going to redistributed must 
+be disclosed plainly as such, and cannot be misrepresented as completely 
+original software.
+
+4. The copyrighted notice above may not be removed or altered
+from any source distribution or redistribution of this software.
+
+5. If you have any questions, please email: oglance.inc@yahoo.com
+
+THIS SOFTWARE IS PROVIDED BY THE AUTHOR ''AS IS'' AND ANY EXPRESS
+OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
+DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
+WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
+NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
