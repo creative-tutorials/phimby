@@ -23,7 +23,7 @@ const HomePage = () => {
     return () => {
       // cleanup
     };
-  });
+  }, [counter]);
 
   const loadPage = () => {
     const checkLogin = JSON.parse(localStorage.getItem("user"));
@@ -45,7 +45,7 @@ const HomePage = () => {
       console.log(data);
       localStorage.setItem("movie", JSON.stringify(data));
       setError(null);
-      window.location.href = "/movies";
+      window.location.href = "/search/movies";
     }
   };
   const fetchallMovies = async () => {
