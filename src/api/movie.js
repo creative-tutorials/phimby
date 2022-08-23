@@ -227,7 +227,7 @@ app.post("/api/users/signup", function (req, res) {
   }
   function validateAge() {
     if (ageValue < 18) {
-      res.status(401).send({
+      res.status(406).send({
         message: "Unauthorized: You are younger than the age of 18"
       });
     } else {
