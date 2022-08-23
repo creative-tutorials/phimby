@@ -1,13 +1,21 @@
+import { newLocalStorage } from "../../LocalStorage/storage";
+import { loginRef } from "../../References/LoginRef";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
-import { GoogleAuthSign } from '../GoogleAuth/AuthGoogle';
+import { GoogleAuthSign } from "../GoogleAuth/AuthGoogle";
 import "../../../styles/forms.css";
 const LoginPage = () => {
   const email = useRef();
   const password = useRef();
+  const message = useRef();
+  const gmessage = useRef();
   const SubmitForm = (e) => {
-    const emailValue = email.current.value;
-    const passwordValue = password.current.value;
+    const { emailValue, passwordValue, newMessage, newalert } = loginRef(
+      email,
+      password,
+      message,
+      gmessage
+    );
     e.preventDefault();
     // check if both inputs are valid
     if (emailValue !== "" && passwordValue !== "") {
@@ -15,7 +23,12 @@ const LoginPage = () => {
       createCredentials(emailValue, passwordValue);
     } else {
       console.log("input are not valid");
-      alert("Please enter email address and password");
+      const xLocal = newLocalStorage("Please fill all the required fields");
+      newMessage.innerHTML = `${localStorage.getItem("error")}`;
+      newalert.classList.add("reveal");
+      setTimeout(() => {
+        newalert.classList.remove("reveal");
+      }, 5000);
     }
 
     async function createCredentials(emailValue, passwordValue) {
@@ -48,26 +61,25 @@ const LoginPage = () => {
           response.json();
           // if status code is 401 alert error
           if (response.status === 401) {
-            alert("Invalid Credentials!");
+            const xLocal = newLocalStorage(
+              "User doesn't exist, Try creating an account"
+            );
+            newalert.classList.add("reveal");
+            newMessage.innerHTML = `${localStorage.getItem("error")}`;
+            setTimeout(() => {
+              newalert.classList.remove("reveal");
+            }, 5000);
           } else {
             return response;
           }
         })
         .then((result) => {
           console.log(result);
-          const userobj = {
-            email: emailValue,
-            password: passwordValue,
-          };
-          localStorage.setItem("user", JSON.stringify(userobj));
-          setTimeout(() => {
-            window.location.pathname = "/";
-          }, 5000);
         })
         .catch((error) => console.log("error", error));
     }
   };
-  const GoogleAuthHandler = GoogleAuthSign
+  const GoogleAuthHandler = GoogleAuthSign;
   return (
     <div className="forms login">
       <form className="form_box" autoComplete="off" onSubmit={SubmitForm}>
@@ -119,6 +131,11 @@ const LoginPage = () => {
           </button>
         </div>
       </form>
+      <div className="alertBx" ref={gmessage}>
+        <div className="alert-message" ref={message}>
+          <i className="fa-regular fa-circle-exclamation"></i> This is an error
+        </div>
+      </div>
     </div>
   );
 };
