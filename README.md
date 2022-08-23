@@ -8,9 +8,9 @@ Phimby is a simple movie app, with phimby you can stream favourite movies, downl
 
 ### Features
 
-*   Authentication
-*   Movie Database
-*   Email Verification
+*   [x] Authentication
+*   [x] Movie Database
+*   [x] Email Verification
 
 ## Pricing
 
@@ -19,3 +19,13 @@ Phimby is a simple movie app, with phimby you can stream favourite movies, downl
 ### Blog
 
 If you're interested in knowing about this product kindly [visit our blog](https://phimby.vercel.app/)
+
+### Copyright
+
+1.  This software is licensed and cannot be used for any other purposes except granted by the owner.
+2.  You cannot also sell this software.
+3.  Any changes made to this software will be reviewed by the owner.
+4.  You cannot use this software for commercials or adverts, excepts granted by the owner.
+5.  No selling of user's email address, or username.
+
+##### [Phimby](https://phimby.vercel.app/) Made with 💖
