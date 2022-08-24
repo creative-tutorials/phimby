@@ -1,6 +1,6 @@
 import { newLocalStorage } from "../../LocalStorage/storage";
 import { loginRef } from "../../References/LoginRef";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { GoogleAuthSign } from "../GoogleAuth/AuthGoogle";
 import "../../../styles/forms.css";
@@ -9,6 +9,7 @@ const LoginPage = () => {
   const password = useRef();
   const message = useRef();
   const gmessage = useRef();
+  const [Auth, setAuth] = useState(false);
   const SubmitForm = (e) => {
     const { emailValue, passwordValue, newMessage, newalert } = loginRef(
       email,
@@ -38,45 +39,50 @@ const LoginPage = () => {
       console.log("createCredentials: " + emailValue + " " + passwordValue);
       console.log(createUID);
 
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify({
-        email: emailValue,
-        password: passwordValue,
-      });
-
-      var requestOptions = {
+      const options = {
         method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: emailValue,
+          password: passwordValue,
+        }),
       };
 
-      await fetch(
-        "https://phimby-api.vercel.app/api/users/login",
-        requestOptions
-      )
+      fetch("https://phimby-api.vercel.app/api/users/login", options)
         .then((response) => {
-          response.json();
           // if status code is 401 alert error
           if (response.status === 401) {
             const xLocal = newLocalStorage(
               "User doesn't exist, Try creating an account"
             );
+            setAuth(false);
+            newalert.classList.remove("success");
             newalert.classList.add("reveal");
             newMessage.innerHTML = `${localStorage.getItem("error")}`;
             setTimeout(() => {
               newalert.classList.remove("reveal");
             }, 5000);
           } else {
+            setAuth(true);
             return response;
           }
         })
-        .then((result) => {
-          console.log(result);
+        .then((data) => {
+          console.log(data);
+          if (!Auth) {
+            console.log("No authentication");
+          } else {
+            newalert.classList.remove("reveal");
+            newalert.classList.add("success");
+            const xLocal = newLocalStorage("Login Success");
+            newMessage.innerHTML = `${localStorage.getItem("error")}`;
+            setTimeout(() => {
+              newalert.classList.remove("success");
+              localStorage.setItem("user", JSON.stringify(options));
+            }, 5000);
+          }
         })
-        .catch((error) => console.log("error", error));
+        .catch((err) => console.error(err));
     }
   };
   const GoogleAuthHandler = GoogleAuthSign;

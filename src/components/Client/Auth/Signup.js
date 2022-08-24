@@ -1,7 +1,7 @@
 import { newLocalStorage } from "../../LocalStorage/storage";
 import { signupRef } from "../../References/SignupRef";
 import { GoogleAuthSign } from "../GoogleAuth/AuthGoogle";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import "../../../styles/forms.css";
 
@@ -12,6 +12,7 @@ function SingupPage() {
   const age = useRef();
   const message = useRef();
   const gmessage = useRef();
+  const [Auth, setAuth] = useState(false);
   const SubmitForm = (e) => {
     const {
       usernameValue,
@@ -42,67 +43,64 @@ function SingupPage() {
       const createUID = Math.floor(
         Math.random() * (passwordValue.length + 5000 || 8000) // create a unique id for each credential in the database
       );
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/json");
-
-      var raw = JSON.stringify({
-        id: createUID,
-        name: usernameValue,
-        email: emailValue,
-        password: passwordValue,
-        age: parseInt(ageValue),
-      });
-
-      var requestOptions = {
+      const options = {
         method: "POST",
-        headers: myHeaders,
-        body: raw,
-        redirect: "follow",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          id: createUID,
+          name: usernameValue,
+          email: emailValue,
+          password: passwordValue,
+          age: parseInt(ageValue),
+        }),
       };
 
-      await fetch(
-        "https://phimby-api.vercel.app/api/users/signup",
-        requestOptions
-      )
+      fetch("https://phimby-api.vercel.app/api/users/signup", options)
         .then((response) => {
-          response.json();
+          // return response;
           // if status code is 401 alert the user
           if (response.status === 406) {
+            setAuth(false);
             const xLocal = newLocalStorage(
               "Unauthorized: You're younger than age of 18yrs"
             );
             newMessage.innerHTML = `${localStorage.getItem("error")}`;
             newalert.classList.add("reveal");
+            newalert.classList.remove("success");
             setTimeout(() => {
               newalert.classList.remove("reveal");
             }, 5000);
           } else if (response.status === 401) {
+            setAuth(false);
             const xLocal = newLocalStorage("Unauthorized: User already exists");
             newMessage.innerHTML = `${localStorage.getItem("error")}`;
             newalert.classList.add("reveal");
+            newalert.classList.remove("success");
             setTimeout(() => {
               newalert.classList.remove("reveal");
             }, 5000);
           } else {
+            setAuth(true)
             return response;
           }
         })
-        .then((result) => {
-          console.log(result);
-          const userobj = {
-            id: createUID,
-            name: usernameValue,
-            email: emailValue,
-            password: passwordValue,
-            age: parseInt(ageValue), // parseInt - turning a string to a number
-            token: result.token,
-          };
-          localStorage.setItem("user", JSON.stringify(userobj));
-          setTimeout(() => {
-            window.location.pathname = "/";
-          }, 5000);
+        .then((data) => {
+          console.log(data);
+          if (!Auth) {
+            console.log("No authentication");
+          } else {
+            console.log("Auth present")
+            newalert.classList.remove("reveal");
+            newalert.classList.add("success");
+            const xLocal = newLocalStorage("Login Success");
+            newMessage.innerHTML = `${localStorage.getItem("error")}`;
+            setTimeout(() => {
+              newalert.classList.remove("success");
+              localStorage.setItem("user", JSON.stringify(options));
+            }, 5000);
+          }
         })
-        .catch((error) => console.log("error", error));
+        .catch((err) => console.error(err));
     }
   };
   const GoogleAuthHandler = GoogleAuthSign;
@@ -113,8 +111,8 @@ function SingupPage() {
           Already have an account?
           <Link to="/login">Login</Link>
         </p>
-        <h2>Enjoy high quality movies with Phimby</h2>
-        <p>Login to access your intresting movies</p>
+        <h2>Phimby High Quality Movies</h2>
+        <p>Signup to access the app</p>
         <div className="input-fields">
           <label htmlFor="username" className="labels">
             Username Here
