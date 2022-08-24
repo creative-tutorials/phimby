@@ -147,6 +147,12 @@
 .alertBx.reveal {
   right: 20px;
 }
+.alertBx.success {
+  right: 20px;
+  background: #1e2a21;
+  border-left: 3px solid rgb(103, 229, 114);
+  color: #8cff96;
+}
 .alert-message {
   display: flex;
   align-items: center;
